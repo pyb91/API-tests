@@ -1,4 +1,4 @@
-const BaseUrl = "https://far-second-lighter.glitch.me/";
+const BaseUrl = "https://observant-suave-stool.glitch.me/";
 const newUserData = {
   id: 3,
   title: "Test swagger",
@@ -7,6 +7,20 @@ const newUserData = {
   date: "2023-02-17",
   image: ".\\data\\images\\256\\jeremy-hynes-HxxNVun8HEc-unsplash.jpg",
 };
+const newArticle = {
+  title: "2 new article",
+  body: "dodajemy nowy artykuł",
+  user_id: 1,
+  date: "2023-02-30",
+  image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
+};
+const editArticle = {
+    body: "artykuł po edycji",
+    date: "2023-02-31",
+    image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
+    title: "brand new article",
+    user_id: "1"
+}
 
 describe("APi tests", () => {
   it("should get users", () => {
@@ -28,4 +42,22 @@ describe("APi tests", () => {
       userID = response.body.user_id;
     });
   });
+  it.only("should post and edit an article", () => {
+    let articleID;
+    cy.request({
+      method: "POST",
+      url: BaseUrl + "api/articles",
+      body: newArticle,
+    }).then((response) => {
+      expect(response.status).to.eq(201);
+      articleID = response.body.id;
+    })
+    cy.request({
+      method: "PUT",
+      url: BaseUrl + "api/articles/" + articleID,
+      body: editArticle,
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+    })
+  })
 });
