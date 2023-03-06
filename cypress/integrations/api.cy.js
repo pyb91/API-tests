@@ -1,4 +1,4 @@
-const BaseUrl = "https://observant-suave-stool.glitch.me/";
+const BaseUrl = "https://unequaled-valley-seagull.glitch.me/";
 const newUserData = {
   id: 3,
   title: "Test swagger",
@@ -18,8 +18,8 @@ const editArticle = {
     body: "artykuł po edycji",
     date: "2023-02-31",
     image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
-    title: "brand new article",
-    user_id: "1"
+    title: "brand new article2",
+    user_id: 1,
 }
 
 describe("APi tests", () => {
@@ -42,7 +42,7 @@ describe("APi tests", () => {
       userID = response.body.user_id;
     });
   });
-  it.only("should post and edit an article", () => {
+  it("should post and edit an article", () => {
     let articleID;
     cy.request({
       method: "POST",
