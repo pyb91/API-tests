@@ -1,4 +1,4 @@
-const BaseUrl = "https://river-same-crocus.glitch.me/"
+const BaseUrl = "https://river-same-crocus.glitch.me/";
 const newUserData = {
   id: 3,
   title: "Test swagger",
@@ -15,12 +15,12 @@ const newArticle = {
   image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
 };
 const editArticle = {
-    body: "artykuł po edycji",
-    date: "2023-02-31",
-    image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
-    title: "brand new article2",
-    user_id: 1,
-}
+  body: "artykuł po edycji",
+  date: "2023-02-31",
+  image: ".\\data\\images\\256\\sharon-mccutcheon--8a5eJ1-mmQ-unsplash.jpg",
+  title: "brand new article2",
+  user_id: 1,
+};
 
 describe("APi tests", () => {
   it("should get users", () => {
@@ -51,15 +51,15 @@ describe("APi tests", () => {
     }).then((response) => {
       expect(response.status).to.eq(201);
       articleID = response.body.id;
-    })
+    });
     cy.request({
       method: "PUT",
       url: BaseUrl + "api/articles/" + articleID,
       body: editArticle,
     }).then((response) => {
       expect(response.status).to.eq(200);
-    })
-  })
+    });
+  });
   it("checks number of articles", () => {
     let numberOfArticles;
     cy.request({
@@ -67,23 +67,21 @@ describe("APi tests", () => {
       url: BaseUrl + "api/articles/",
     }).then((response) => {
       expect(response.status).to.eq(200);
-      numberOfArticles = response.body.length
+      numberOfArticles = response.body.length;
     });
-    cy.request ({
+    cy.request({
       method: "POST",
-      url: BaseUrl + "api/articles", 
+      url: BaseUrl + "api/articles",
       body: newArticle,
     }).then((response) => {
       expect(response.status).to.eq(201);
-    })
+    });
     cy.request({
       method: "GET",
       url: BaseUrl + "api/articles/",
     }).then((response) => {
       expect(response.status).to.eq(200);
-      expect(response.body.length).to.equal(numberOfArticles + 1)
-
-
-  })
-})
-})
+      expect(response.body.length).to.equal(numberOfArticles + 1);
+    });
+  });
+});
