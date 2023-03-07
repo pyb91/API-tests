@@ -1,4 +1,4 @@
-const BaseUrl = "https://unequaled-valley-seagull.glitch.me/";
+const BaseUrl = "https://river-same-crocus.glitch.me/"
 const newUserData = {
   id: 3,
   title: "Test swagger",
@@ -60,4 +60,30 @@ describe("APi tests", () => {
       expect(response.status).to.eq(200);
     })
   })
-});
+  it("checks number of articles", () => {
+    let numberOfArticles;
+    cy.request({
+      method: "GET",
+      url: BaseUrl + "api/articles/",
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      numberOfArticles = response.body.length
+    });
+    cy.request ({
+      method: "POST",
+      url: BaseUrl + "api/articles", 
+      body: newArticle,
+    }).then((response) => {
+      expect(response.status).to.eq(201);
+    })
+    cy.request({
+      method: "GET",
+      url: BaseUrl + "api/articles/",
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.length).to.equal(numberOfArticles + 1)
+
+
+  })
+})
+})
