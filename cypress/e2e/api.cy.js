@@ -1,4 +1,4 @@
-const BaseUrl = "https://river-same-crocus.glitch.me/";
+const BaseUrl = "https://local-infrequent-cymbal.glitch.me/";
 const newUserData = {
   id: 3,
   title: "Test swagger",
@@ -43,24 +43,27 @@ describe("APi tests", () => {
     });
   });
   it("should post and edit an article", () => {
-    let articleID;
     cy.request({
       method: "POST",
       url: BaseUrl + "api/articles",
       body: newArticle,
     }).then((response) => {
       expect(response.status).to.eq(201);
-      articleID = response.body.id;
-    });
-    cy.request({
-      method: "PUT",
-      url: BaseUrl + "api/articles/" + articleID,
-      body: editArticle,
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-    });
+      let articleID = response.body.id;
+      return articleID
+    }).then((articleID) => {
+      cy.request({
+        method: "PUT",
+        url: BaseUrl + "api/articles/" + articleID,
+        body: editArticle,
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+      });
+
+    })
+
   });
-  it("checks number of articles", () => {
+  it("adds article and checks number of articles", () => {
     let numberOfArticles;
     cy.request({
       method: "GET",
